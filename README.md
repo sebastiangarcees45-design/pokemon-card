@@ -107,17 +107,17 @@ sudo systemctl restart nginx
 ERROR ENCONTRADO: 
 serve no estaba instalado
 
-# Intentamos servir la carpeta 'dist' en el puerto 80
+Intentamos servir la carpeta 'dist' en el puerto 80
 ```bash
 serve -s dist -l 80
 ```
-# Resultado:
+Resultado:
 ```bash
 # Command 'serve' not found, but can be installed with:
 # sudo snap install serve
 # => Esto indica que la terminal no encuentra el comando 'serve', necesitamos instalarlo.
 ```
-# Instalamos serve globalmente usando npm
+Instalamos serve globalmente usando npm
 ```bash
 sudo npm install -g serve
 # sudo      -> Ejecuta el comando como administrador (root)
@@ -126,14 +126,14 @@ sudo npm install -g serve
 # -g        -> Instalación global, para que esté disponible en toda la máquina
 # serve     -> El paquete que queremos instalar
 ```
-# Verificamos que serve está instalado correctamente
+Verificamos que serve está instalado correctamente
 ```bash
 serve -V
 ```
-# Vuelve a ejecutar 'serve' para revisar la versión
-# Nota: Algunos errores indican que '-V' no es compatible, entonces se puede omitir.
+Vuelve a ejecutar 'serve' para revisar la versión
+Nota: Algunos errores indican que '-V' no es compatible, entonces se puede omitir.
 
-# Ahora servimos la app React/Vite en producción
+Ahora servimos la app React/Vite en producción
 ```bash
 sudo serve -s dist -l 80
 # -s dist   -> Indica que la carpeta 'dist' contiene los archivos de la app
