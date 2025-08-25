@@ -110,9 +110,6 @@ serve no estaba instalado
 Intentamos servir la carpeta 'dist' en el puerto 80
 ```bash
 serve -s dist -l 80
-```
-Resultado:
-```bash
 # Command 'serve' not found, but can be installed with:
 # sudo snap install serve
 # => Esto indica que la terminal no encuentra el comando 'serve', necesitamos instalarlo.
