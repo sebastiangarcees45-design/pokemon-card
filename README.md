@@ -62,13 +62,13 @@ En la consola de AWS selecciona tu instancia y usa la opción "Conectar" → "Co
 sudo apt update && sudo apt upgrade -y
 sudo apt install -y nodejs npm nginx git
 ```
-5. Clonar el repositorio en la instancia
+4. Clonar el repositorio en la instancia
 ```bash
 git clone https://github.com/sebastiangarcees45-design/pokemon-card.git
 cd pokemon-card
 npm install
 ```
-7. Construir el proyecto
+5. Construir el proyecto
 ```bash
 npm run build
 ```
