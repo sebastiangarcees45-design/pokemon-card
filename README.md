@@ -136,15 +136,7 @@ Si el puerto 80 estaba ocupado, serve elegía un puerto alternativo automáticam
 
 7. Acceder a la app
 
-Abre en tu navegador:
+Abrir en el navegador:
 ```bash
-http://<IP_PUBLICA_DE_TU_EC2>
+http://<IP_PUBLICA_DE_EC2>
 ```
-
-🌍 Hacerlo público sin llaves privadas
-
-El proyecto ya es público en GitHub: cualquiera puede clonarlo.
-
-El servidor EC2 está accesible por IP pública en el puerto 80.
-
-No necesitas llaves privadas porque accedes con la consola web de AWS.
