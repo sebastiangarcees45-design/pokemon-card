@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	 <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de ventas diarias</title>
+    <link rel="stylesheet" href="diseño.css">
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const form = document.querySelector("form");
+
+            form.addEventListener("submit", async (event) => {
+                event.preventDefault(); // Prevenir el envío por defecto del formulario
+
+                const formData = new FormData(form); // Crear un objeto FormData con los datos del formulario
+
+                try {
+                    const response = await fetch(form.action, {
+                        method: "POST",
+                        body: formData,
+                    });
+
+                    if (response.ok) {
+                        const result = await response.text(); // Cambia a `response.json()` si el servidor devuelve JSON
+                        alert("Datos enviados con éxito:\n" + result);
+                        form.reset(); // Limpiar el formulario después del envío
+                    } else {
+                        alert("Error al enviar los datos: " + response.statusText);
+                    }
+                } catch (error) {
+                    console.error("Error en la solicitud:", error);
+                    alert("Hubo un error al enviar los datos. Inténtalo nuevamente.");
+                }
+            });
+        });
+    </script>
+<style>
+        
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px auto;
+            background-color: #fff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+            font-size: 14px;
+        }
+
+        thead {
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        thead th {
+            text-align: left;
+            padding: 10px 15px;
+            border-bottom: 2px solid #ddd;
+        }
+
+        tbody tr {
+            border-bottom: 1px solid #ddd;
+        }
+
+        tbody tr:nth-child(odd) {
+            background-color: #f9f9f9;
+        }
+
+        tbody tr:hover {
+            background-color: #f0f0f5;
+        }
+
+        td {
+            padding: 10px 15px;
+            color: #555;
+            text-align: left;
+        }
+
+        .error {
+            color: red;
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <script src="/src/main.jsx"></script>
+	<header id="header_lista">
+        <button onclick="window.location.href='ventas_diarias.html'">Ventas diarias</button>
+        <button onclick="window.location.href='promedio_mensual.html'">Promedio mensual</button>
+        <button onclick="window.location.href='inventario.html'">Inventario</button>
+        <button onclick="window.location.href='stock.html'">Stock</button>
+        <button onclick="window.location.href='clientes.html'">Clientes</button>
+        <button onclick="window.location.href='facturas_fianza.html'">Facturas para fianza</button>
+        <button onclick="window.location.href='factura_cancelar.html'">Facturas para Cancelar</button>
+        <img src="imagenes/logo.jpg" alt="Descripción de la imagen" id="logo">
+
+    </header>
+    <h1>Venta diaria</h1>
+    <div class="contenedor">
+     
+    <form action="phps/insertar_venta.php" method="POST" id="form_insertar">    
+
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="searchInput" placeholder="Escribe el nombre del producto..." autocomplete="off">
+        <ul id="results"></ul>
+        
+        <label for="id_producto">id producto:</label>
+        <input type="number" id="id_producto" name="id_producto" readonly required><br>
+        
+        <label for="cantidad_venta">Cantidad:</label>
+        <input type="number" id="cantidad_venta" name="cantidad_venta" step="0.01" min="0.01" required>
+
+
+        <label for="precio_venta">Precio de venta:</label>
+        <input type="number" step="0.01"  id="precio_venta" name="precio_venta" step="0.01" required><br>
+
+        <label for="fecha_venta">Fecha de venta:</label>
+        <input type="date" id="fecha_venta" name="fecha_venta" required><br>
+
+        <button type="submit" >Enviar</button>
+    </form>
+</div>
+       <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const input = document.getElementById("searchInput");
+            const idInput = document.getElementById("id_producto");
+            const resultsContainer = document.getElementById("results");
+
+            input.addEventListener("input", async () => {
+                const query = input.value.trim();
+
+                if (query.length === 0) {
+                    resultsContainer.innerHTML = ""; // Limpia resultados si no hay texto
+                    return;
+                }
+
+                try {
+                    // Hacer la solicitud al servidor
+                    const response = await fetch(`search.php?q=${encodeURIComponent(query)}`);
+                    const results = await response.json();
+
+                    // Mostrar los resultados en la lista
+                    resultsContainer.innerHTML = results
+                        .map(item => 
+                            `<li data-id="${item.id_producto}">
+                                <span>${item.nombre}</span>
+                                <span>$${item.precio_compra.toFixed(2)}</span>
+                                <span>${item.stock}</span> 
+                            </li>`
+                        )
+                        .join("");
+
+                    // Agregar evento click a cada elemento de la lista
+                    const listItems = resultsContainer.querySelectorAll("li");
+                    listItems.forEach(item => {
+                        item.addEventListener("click", () => {
+                            input.value = item.querySelector("span").textContent; // Toma el nombre
+                            idInput.value = item.dataset.id; // Completa el ID
+                            resultsContainer.innerHTML = ""; // Limpia la lista
+                        });
+                    });
+                } catch (error) {
+                    console.error("Error fetching search results:", error);
+                }
+            });
+        });
+    </script>
+
+    <h1>Lista de Ventas</h1>
+    <table id="tabla">
+        <thead>
+            <tr>
+                <th>ID Venta</th>
+                <th>ID Producto</th>
+                <th>Nombre</th>
+                <th>Cantidad</th>
+                <th>Precio Compra</th>
+                <th>Precio Venta</th>
+                <th>Total Compra</th>
+                <th>Total Venta</th>
+                <th>Fecha</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Los datos se agregarán dinámicamente aquí -->
+        </tbody>
+    </table>
+    <div id="error" class="error"></div>
+
+    <script>
+        // Hacer la petición al archivo PHP
+        fetch('phps/lista_npc_ventas.php')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Error en la respuesta del servidor.');
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Seleccionar el cuerpo de la tabla
+                const tabla = document.querySelector('#tabla tbody');
+
+                // Iterar los datos y agregarlos como filas en la tabla
+                data.forEach(item => {
+                    const fila = document.createElement('tr');
+                    fila.innerHTML = `
+                     <td>${item.id_venta}</td>
+                       <td>${item.id_producto}</td>
+                    <td>${item.nombre}</td>
+                    <td>${item.cantidad_venta}</td>
+                    <td>$${Number(item.precio_compra).toLocaleString('es-CO')}</td>
+                    <td>$${Number(item.precio_venta).toLocaleString('es-CO')}</td>
+                    <td>$${Number(item.total_compra).toLocaleString('es-CO')}</td>
+                    <td>$${Number(item.total_venta).toLocaleString('es-CO')}</td>
+                    <td>${item.fecha_venta}</td>
+                    `;
+                    tabla.appendChild(fila);
+                });
+            })
+            .catch(error => {
+                // Mostrar mensaje de error
+                document.getElementById('error').textContent = 'Hubo un error al cargar los datos: ' + error.message;
+            });
+    </script>
+</body>
+</html>

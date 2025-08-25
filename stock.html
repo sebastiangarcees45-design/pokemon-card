@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de STOCK</title>
+    <link rel="stylesheet" href="diseño.css">
+    <script type="module" src="/src/main.jsx"></script>
+</head>
+<body>
+
+    <header>
+        <button onclick="window.location.href='ventas_diarias.html'">Ventas diarias</button>
+        <button onclick="window.location.href='promedio_mensual.html'">Promedio mensual</button>
+        <button onclick="window.location.href='inventario.html'">Inventario</button>
+        <button onclick="window.location.href='stock.html'">Stock</button>
+        <button onclick="window.location.href='clientes.html'">Clientes</button>
+        <button onclick="window.location.href='facturas_fianza.html'">Facturas para fianza</button>
+        <button onclick="window.location.href='factura_cancelar.html'">Facturas para Cancelar</button>
+        <img src="imagenes/logo.jpg" alt="Descripción de la imagen" id="logo">
+        
+    </header>
+
+    <h1>Lista de Elementos</h1>
+    <table id="tabla">
+        <thead>
+            <tr>
+                <th>ID Producto</th>
+                <th>Nombre</th>
+                <th>Precio Compra</th>
+                <th>Total Venta</th>
+                <th>Total Entrada</th>
+                <th>Total Fianza</th>
+                <th>Facturas Canceladas</th>
+                <th>Stock</th>
+
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
+   
+</body>
+</html>
