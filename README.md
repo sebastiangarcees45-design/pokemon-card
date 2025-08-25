@@ -25,7 +25,7 @@ Este proyecto es una aplicación hecha en **React con Vite** que consume la **Po
 
 1. Clonar el repositorio:
    ```bash
-   git clone https://github.com/KeinerAstos/pokemon-card.git
+   git clone https://github.com/sebastiangarcees45-design/pokemon-card.git
    cd pokemon-card
 2. Instalar dependencias:
 ```bash
@@ -64,7 +64,7 @@ sudo apt install -y nodejs npm nginx git
 ```
 5. Clonar el repositorio en la instancia
 ```bash
-git clone https://github.com/KeinerAstos/pokemon-card.git
+git clone https://github.com/sebastiangarcees45-design/pokemon-card.git
 cd pokemon-card
 npm install
 ```
